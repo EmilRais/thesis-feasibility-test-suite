@@ -31,7 +31,7 @@ describe("AlphaApi | Endpoint 11A - POST /user/facebook/get", () => {
         return database.close();
     });
 
-    it("should return unauthorized when token is invalid", () => {
+    it("1. Er den angivne token ugyldig skal endpointet returnere Unauthorized", () => {
         const credential = { type: "facebook", userId: userId, token: "some-invalid-token" };
         return agent.post("localhost:3030/user/facebook/get")
             .send(credential)
@@ -42,7 +42,7 @@ describe("AlphaApi | Endpoint 11A - POST /user/facebook/get", () => {
             });
     });
 
-    it("should return not acceptable when no user owns the token", () => {
+    it("2. Findes ingen bruger med det angivne Facebook-brugerid skal endpointet returnere Not Acceptable", () => {
         const credential = { type: "facebook", userId: userId, token: userToken };
         return agent.post("localhost:3030/user/facebook/get")
             .send(credential)
@@ -53,7 +53,7 @@ describe("AlphaApi | Endpoint 11A - POST /user/facebook/get", () => {
             });
     });
 
-    it("should return 200 and the user when user owns the token", () => {
+    it("3. Findes en bruger med det angivne Facebook-brugerid skal endpointet returnere brugeren og OK", () => {
         const credential = { type: "facebook", userId: userId, token: userToken };
 
         const user = {
