@@ -22,7 +22,7 @@ describe("BetaApi | Endpoint 3B - POST /element/delete/payment-option/:id", () =
         return database.close();
     });
 
-    it("should return bad request when sale relies on payment option", () => {
+    it("1. Afhænger et udsalg af den angivne betalingsmulighed skal endpointet returnere Bad Request.", () => {
         const sale: Sale = {
             _id: "id-1",
             name: "some-sale",
@@ -48,7 +48,7 @@ describe("BetaApi | Endpoint 3B - POST /element/delete/payment-option/:id", () =
             });
     });
 
-    it("should have removed payment option from all sales when succesful", () => {
+    it("2. Betalingsmuligheden skal være fjernet fra eventuelle udsalg.", () => {
         const paymentOption: PaymentOption = { _id: "some-id", value: "Cash", type: "PAYMENT_OPTION" };
         const sale: Sale = {
             _id: "id-1",
@@ -76,7 +76,7 @@ describe("BetaApi | Endpoint 3B - POST /element/delete/payment-option/:id", () =
             });
     });
 
-    it("should return bad request when payment option is not deleted", () => {
+    it("3. Eksisterer den angivne betalingsmulighed ikke skal endpointet returnere Bad Request.", () => {
         const sale: Sale = {
             _id: "id-1",
             name: "some-sale",
@@ -102,7 +102,7 @@ describe("BetaApi | Endpoint 3B - POST /element/delete/payment-option/:id", () =
             });
     });
 
-    it("should return ok when succesful", () => {
+    it("4. Lykkes det at slette betalingsmuligheden, skal endpointet returnere OK.", () => {
         const paymentOption: PaymentOption = { _id: "some-id", value: "Cash", type: "PAYMENT_OPTION" };
         const sale: Sale = {
             _id: "id-1",
@@ -129,7 +129,7 @@ describe("BetaApi | Endpoint 3B - POST /element/delete/payment-option/:id", () =
             });
     });
 
-    it("should have deleted the payment option when succesful", () => {
+    it("5. Lykkes det at slette betalingsmuligheden, forefindes betalingsmuligheden ikke længere i databasen.", () => {
         const paymentOption: PaymentOption = { _id: "some-id", value: "Cash", type: "PAYMENT_OPTION" };
         const sale: Sale = {
             _id: "id-1",
