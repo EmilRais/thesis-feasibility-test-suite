@@ -22,7 +22,7 @@ describe("BetaApi | Endpoint 3C - POST /element/delete/type/:id", () => {
         return database.close();
     });
 
-    it("should return bad request when sale relies on type", () => {
+    it("1. Afhænger et udsalg af den angivne type skal endpointet returnere Bad Request.", () => {
         const sale: Sale = {
             _id: "id-1",
             name: "some-sale",
@@ -48,7 +48,7 @@ describe("BetaApi | Endpoint 3C - POST /element/delete/type/:id", () => {
             });
     });
 
-    it("should have removed type from all sales when succesful", () => {
+    it("2. Typen skal være fjernet fra eventuelle udsalg.", () => {
         const type: Type = { _id: "some-id", value: "Clothing", type: "TYPE" };
         const sale: Sale = {
             _id: "id-1",
@@ -76,7 +76,7 @@ describe("BetaApi | Endpoint 3C - POST /element/delete/type/:id", () => {
             });
     });
 
-    it("should return bad request when type is not deleted", () => {
+    it("3. Eksisterer den angivne type ikke skal endpointet returnere Bad Request.", () => {
         const sale: Sale = {
             _id: "id-1",
             name: "some-sale",
@@ -102,7 +102,7 @@ describe("BetaApi | Endpoint 3C - POST /element/delete/type/:id", () => {
             });
     });
 
-    it("should return ok when succesful", () => {
+    it("4. Lykkes det at slette typen, skal endpointet returnere OK.", () => {
         const type: Type = { _id: "some-id", value: "Clothing", type: "TYPE" };
         const sale: Sale = {
             _id: "id-1",
@@ -129,7 +129,7 @@ describe("BetaApi | Endpoint 3C - POST /element/delete/type/:id", () => {
             });
     });
 
-    it("should have deleted the type when succesful", () => {
+    it("5. Lykkes det at slette typen, forefindes typen ikke længere i databasen.", () => {
         const type: Type = { _id: "some-id", value: "Clothing", type: "TYPE" };
         const sale: Sale = {
             _id: "id-1",
