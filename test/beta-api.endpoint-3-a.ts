@@ -22,7 +22,7 @@ describe("BetaApi | Endpoint 3A - POST /element/delete/brand/:id", () => {
         return database.close();
     });
 
-    it("should return bad request when sale relies on brand", () => {
+    it("1. Afhænger et udsalg af det angivne brand skal endpointet returnere Bad Request.", () => {
         const sale: Sale = {
             _id: "id-1",
             name: "some-sale",
@@ -48,7 +48,7 @@ describe("BetaApi | Endpoint 3A - POST /element/delete/brand/:id", () => {
             });
     });
 
-    it("should return bad request when brand is not deleted", () => {
+    it("2. Eksisterer det angivne brand ikke skal endpointet returnere Bad Request.", () => {
         const sale: Sale = {
             _id: "id-1",
             name: "some-sale",
@@ -74,7 +74,7 @@ describe("BetaApi | Endpoint 3A - POST /element/delete/brand/:id", () => {
             });
     });
 
-    it("should return ok when succesful", () => {
+    it("3. Lykkes det at slette brandet, skal endpointet returnere OK.", () => {
         const brand: Brand = { _id: "some-id", value: "Nike", type: "BRAND" };
         const sale: Sale = {
             _id: "id-1",
@@ -101,7 +101,7 @@ describe("BetaApi | Endpoint 3A - POST /element/delete/brand/:id", () => {
             });
     });
 
-    it("should delete brand when succesful", () => {
+    it("4. Lykkes det at slette brandet, forefindes brandet ikke længere i databasen.", () => {
         const brand: Brand = { _id: "some-id", value: "Nike", type: "BRAND" };
         const sale: Sale = {
             _id: "id-1",
