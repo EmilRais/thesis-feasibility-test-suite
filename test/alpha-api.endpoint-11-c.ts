@@ -53,6 +53,31 @@ describe("AlphaApi | Endpoint 11C - POST /user/facebook/edit", () => {
             });
     });
 
+    it("should return 200 and the updated user when user owns the token", () => {
+        const credential = { type: "facebook", userId: userId, token: userToken };
+
+        const user = {
+            _id: "some-id",
+            email: null as string,
+            credential: { type: "facebook", userId: userId }
+        };
+        return database.collection("Users").insert(user)
+            .then(() => {
+                return agent.post("localhost:3030/user/facebook/edit")
+                    .send(credential)
+                    .catch(error => error.response)
+                    .then(response => {
+                        response.status.should.equal(200);
+
+                        response.body.should.deep.equal({
+                            _id: "some-id",
+                            email: null as string,
+                            credential: credential
+                        });
+                    });
+            });
+    });
+
     it("should update user's credential when user owns the token", () => {
         const credential = { type: "facebook", userId: userId, token: userToken };
 
@@ -75,31 +100,6 @@ describe("AlphaApi | Endpoint 11C - POST /user/facebook/edit", () => {
                                     credential: credential
                                 }]);
                             });
-                    });
-            });
-    });
-
-    it("should return 200 and the updated user when user owns the token", () => {
-        const credential = { type: "facebook", userId: userId, token: userToken };
-
-        const user = {
-            _id: "some-id",
-            email: null as string,
-            credential: { type: "facebook", userId: userId }
-        };
-        return database.collection("Users").insert(user)
-            .then(() => {
-                return agent.post("localhost:3030/user/facebook/edit")
-                    .send(credential)
-                    .catch(error => error.response)
-                    .then(response => {
-                        response.status.should.equal(200);
-
-                        response.body.should.deep.equal({
-                            _id: "some-id",
-                            email: null as string,
-                            credential: credential
-                        });
                     });
             });
     });
